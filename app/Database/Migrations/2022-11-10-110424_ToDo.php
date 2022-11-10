@@ -23,11 +23,11 @@ class ToDo extends Migration
 
         $this->forge->addKey('id', true);
         
-        $this->forge->createTable('to-do-list-php');
+        $this->forge->createTable('to-do');
     }
 
     public function down()
     {
-        $this->forge->dropTable('to-do-list-php');
+        $this->forge->dropTable('to-do');
     }
 }
