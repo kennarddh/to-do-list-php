@@ -50,7 +50,7 @@ class ToDo extends ResourceController
 
         $id = $this->model->getInsertID();
 
-        return $this->respond(["data" => ["id" => $id]]);
+        return $this->respond(["data" => ["id" => $id]], 201);
     }
 
 
@@ -74,9 +74,7 @@ class ToDo extends ResourceController
         ]);
 
         if ($success)
-            return $this->respond(["data" => [
-                "id" => $id
-            ]]);
+            return $this->respond(["message" => "Success"], 200);
 
         return $this->respond(["message" => "Internal server error"], 500);
     }
@@ -97,9 +95,8 @@ class ToDo extends ResourceController
         $success = $this->model->delete($id);
 
         if ($success)
-            return $this->respond(["data" => [
-                "id" => $id
-            ]]);
+            return $this->respond(["message" => "Success"], 200);
+
 
         return $this->respond(["message" => "Internal server error"], 500);
     }
