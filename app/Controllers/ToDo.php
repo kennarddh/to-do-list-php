@@ -42,7 +42,7 @@ class ToDo extends ResourceController
      */
     public function create()
     {
-        $title = $this->request->getVar('title');
+        $title = $this->request->getJSON()->title;
 
         $this->model->insert([
             "title" => $title,
@@ -53,24 +53,32 @@ class ToDo extends ResourceController
         return $this->respond(["data" => ["id" => $id]]);
     }
 
-    /**
-     * Return the editable properties of a resource object
-     *
-     * @return mixed
-     */
-    public function edit($id = null)
-    {
-        //
-    }
 
     /**
-     * Add or update a model resource, from "posted" properties
+     * Update a model resource, from "posted" properties
      *
      * @return mixed
      */
     public function update($id = null)
     {
-        //
+        $data = $this->model->find($id);
+
+        if ($data === null) {
+            return $this->respond(["message" => "To do doesn't exist"], 404);
+        }
+
+        $title = $this->request->getJSON()->title;
+
+        $success = $this->model->update($id, [
+            "title" => $title,
+        ]);
+
+        if ($success)
+            return $this->respond(["data" => [
+                "id" => $id
+            ]]);
+
+        return $this->respond(["message" => "Internal server error"], 500);
     }
 
     /**
@@ -80,6 +88,19 @@ class ToDo extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $data = $this->model->find($id);
+
+        if ($data === null) {
+            return $this->respond(["message" => "To do doesn't exist"], 404);
+        }
+
+        $success = $this->model->delete($id);
+
+        if ($success)
+            return $this->respond(["data" => [
+                "id" => $id
+            ]]);
+
+        return $this->respond(["message" => "Internal server error"], 500);
     }
 }

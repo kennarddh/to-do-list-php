@@ -38,6 +38,8 @@ $routes->set404Override();
 $routes->get('/', 'ToDo::index');
 $routes->get('/(:segment)', 'ToDo::show/$1');
 $routes->post('/', 'ToDo::create');
+$routes->put('/(:segment)', 'ToDo::update/$1');
+$routes->delete('/(:segment)', 'ToDo::delete/$1');
 
 /*
  * --------------------------------------------------------------------
