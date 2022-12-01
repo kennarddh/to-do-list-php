@@ -40,6 +40,8 @@ $routes->get('/(:segment)', 'ToDo::show/$1');
 $routes->post('/', 'ToDo::create');
 $routes->put('/(:segment)', 'ToDo::update/$1');
 $routes->delete('/(:segment)', 'ToDo::delete/$1');
+$routes->post('/login', 'Auth::login');
+$routes->post('/register', 'Auth::register');
 
 /*
  * --------------------------------------------------------------------
